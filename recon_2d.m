@@ -38,5 +38,4 @@ sens = get_sens_map(image, '2D');
 C = C_2D(size(image), sens);
 image_coil_combined = C' * image;
 
-
  
