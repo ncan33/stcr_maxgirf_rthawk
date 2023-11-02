@@ -128,7 +128,7 @@ Cost = structArrayToStructWithArrays(out);
 plotCost(Cost);
 
 % save video.
-save_video("test.avi", img_recon, 0, 1000 / (kspace_info.user_TR * Narms_per_frame / 1000), false, 1/2);
+%save_video("test.avi", img_recon, 0, 1000 / (kspace_info.user_TR * Narms_per_frame / 1000), false, 1/2);
 
 function [struct] = each_iter_fun(F, C, T_tfd, T_tv, lambdaTFD, lambdatTV, l1_func, kspace, x, y)
     struct.fidelityNorm = (0.5 * (norm(vec(F * C * x - kspace))^2));
