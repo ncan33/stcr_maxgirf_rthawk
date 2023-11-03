@@ -5,7 +5,12 @@ function [kx, ky, Ncoil, matrix_size, DCF] = load_and_prep_data(paths)
     %% Load data
     [paths, header] = load_pulseq_file(paths);
     
-    load(file_name);
+    %% Res
+    res = 
+
+res = [kspace_info.user_ResolutionX, kspace_info.user_ResolutionY];         % [mm]
+matrix_size = ceil([kspace_info.user_FieldOfViewX, kspace_info.user_FieldOfViewX] ./ res);  
+viewOrder = kspace_info.viewOrder;
 
     %% View order
 
@@ -13,7 +18,7 @@ function [kx, ky, Ncoil, matrix_size, DCF] = load_and_prep_data(paths)
     % m-file generating the .seq file.
 
     fully_sampled_view = 1:header.nr_interleaves;
-    view_order = 
+    view_order = repmat(fully_sampled_view, 1, header.nr_fully_sampled_frames);
 
     %% Start Data prep.
 

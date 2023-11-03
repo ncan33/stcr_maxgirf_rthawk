@@ -8,7 +8,9 @@ addpath('encoding/');
 
 %% Select which dataset to use [See select_dataset.m]
 area = 'speech';   which_file = 0;
-select_dataset;
+paths = select_dataset(area, which_file);
+path = paths.path;
+name = paths.name;
 
 %% Recon Related Parameters here
 Narms_per_frame = 13;               % [integer], input to prep function, 13 for speech, 8 for cardiac

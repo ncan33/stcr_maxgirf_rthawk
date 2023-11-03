@@ -9,8 +9,8 @@ addpath('./encoding/');
 addpath('./utility/');
 
 %% Select which dataset to use [See select_dataset.m]
-area = 'pulseq_lung';   which_file = 0;
-select_dataset;
+area = 'pulseq_lung'; which_file = 0;
+paths = select_dataset(area, which_file);
 
 %% Recon Related Parameters here
 Narms_per_frame = 13;               % [integer], input to prep function, 13 for speech, 8 for cardiac
