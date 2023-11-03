@@ -13,9 +13,23 @@ function [paths, header] = load_pulseq_file(paths)
     paths.seq_file = seq_file(1:end-1);
 
     %% Read a .seq file
+    addpath('thirdparty/pulseq/');
     seq = mr.Sequence;
     seq.read(paths.seq_file);
 
-    %% Parse Pulseq header
-    header = get_sequence_parameters();
+    %% Parse parameters
+    header.base_resolution = seq.getDefinition('BaseResolution');
+    header.discard_post    = seq.getDefinition('DiscardPost');
+    header.discard_pre     = seq.getDefinition('DiscardPre');
+    header.real_dwell_time = seq.getDefinition('RealDwellTime'); % [sec]
+    header.nr_averages     = seq.getDefinition('Averages');
+    header.nr_interleaves  = seq.getDefinition('Interleaves');
+    header.arm_samples     = seq.getDefinition('ArmSamples');
+    header.grad_samples    = seq.getDefinition('GradSamples');
+    header.fov             = seq.getDefinition('FOV');
+    header.slice_thickness = seq.getDefinition('SliceThickness');
+    
+    %% Adjustments for dynamic recon
+    header.nr_fully_sampled_frames = header.nr_averages;
+
 end

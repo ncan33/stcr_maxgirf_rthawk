@@ -3,10 +3,17 @@ function [kx, ky, Ncoil, matrix_size, DCF] = load_and_prep_data(paths)
     % This function loads Pulseq data, reshapes, and scales the data.
 
     %% Load data
-    paths = add_to_paths_struct(paths);
-    var = get_sequence_parameters(var, paths);
+    [paths, header] = load_pulseq_file(paths);
     
     load(file_name);
+
+    %% View order
+
+    % Note: this assumes a linear view-order. This will depend on the
+    % m-file generating the .seq file.
+
+    y = 1:;
+    view_order
 
     %% Start Data prep.
 

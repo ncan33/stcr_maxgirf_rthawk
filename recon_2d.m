@@ -4,8 +4,8 @@
 clear; close all; clc
 
 %% Setup paths
-addpath('encoding/');
-addpath('/server/home/ncan/pulseq');
+addpath('./encoding/');
+addpath('./utility/');
 
 %% Select which dataset to use [See select_dataset.m]
 area = 'pulseq_lung';   which_file = 0;
@@ -18,7 +18,7 @@ TRtoTrim = 150;                    % [integer], input to prep function
 useGPU = 1;
 
 %% Load Data and prep
-load_and_prep_data;
+[kx, ky, Ncoil, matrix_size, DCF] = load_and_prep_data(paths);
 
 %% Encoding operators:
 

@@ -40,10 +40,10 @@ switch area
             % -------------------------------------------------------------
             % "Good" example
             case 0 
-                paths.folder = "/server/sdata/ncan/mri_data/disc/lung/vol0729_20231019";
-                paths.name = "meas_MID00483_FID10137_tr_9_breath_hold";
-                paths.traj = "traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.h5";
-                paths.seq = "bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.seq";
+                paths.folder = '/server/sdata/ncan/mri_data/disc/lung/vol0729_20231019';
+                paths.name = 'meas_MID00483_FID10137_tr_9_breath_hold';
+                paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.h5';
+                paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.seq';
             % -------------------------------------------------------------
             % "Bad" example
             case 1
