@@ -6,7 +6,9 @@ function [kx, ky, Ncoil, matrix_size, DCF] = load_and_prep_data(paths)
     [paths, header] = load_pulseq_file(paths);
     
     %% Res
-    res = 
+    res_x = [header.base_resolution / (header.fov(1) * 1000)];
+    res_x = [header.base_resolution / (header.fov(1) * 1000)];
+    res = [res_x, res_y];
 
 res = [kspace_info.user_ResolutionX, kspace_info.user_ResolutionY];         % [mm]
 matrix_size = ceil([kspace_info.user_FieldOfViewX, kspace_info.user_FieldOfViewX] ./ res);  
