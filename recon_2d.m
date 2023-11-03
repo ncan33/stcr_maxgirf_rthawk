@@ -2,6 +2,7 @@
 % Ecrin Yagiz
 %% 2D gridding recon using a "Fatrix" encoding operator.
 clear; close all; clc
+setup()
 
 %% Setup paths
 addpath('./encoding/');

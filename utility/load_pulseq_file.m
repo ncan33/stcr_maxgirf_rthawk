@@ -13,7 +13,7 @@ function [paths, header] = load_pulseq_file(paths)
     paths.seq_file = seq_file(1:end-1);
 
     %% Read a .seq file
-    addpath('thirdparty/pulseq/');
+    addpath('./thirdparty/pulseq/matlab');
     seq = mr.Sequence;
     seq.read(paths.seq_file);
 

@@ -12,8 +12,8 @@ function [kx, ky, Ncoil, matrix_size, DCF] = load_and_prep_data(paths)
     % Note: this assumes a linear view-order. This will depend on the
     % m-file generating the .seq file.
 
-    y = 1:;
-    view_order
+    fully_sampled_view = 1:header.nr_interleaves;
+    view_order = 
 
     %% Start Data prep.
 
