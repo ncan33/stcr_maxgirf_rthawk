@@ -17,7 +17,7 @@ TRtoTrim = 150;                    % [integer], input to prep function
 useGPU = 1;
 
 %% Load Data and prep
-load_and_prep_data;
+ecrin_load_and_prep_data;
 
 %% Encoding operators:
 

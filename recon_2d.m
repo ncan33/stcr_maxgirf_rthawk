@@ -5,9 +5,10 @@ clear; close all; clc
 
 %% Setup paths
 addpath('encoding/');
+addpath('/server/home/ncan/pulseq');
 
 %% Select which dataset to use [See select_dataset.m]
-area = 'speech';   which_file = 0;
+area = 'pulseq_lung';   which_file = 0;
 select_dataset;
 
 %% Recon Related Parameters here
