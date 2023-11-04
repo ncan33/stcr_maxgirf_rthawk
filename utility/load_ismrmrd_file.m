@@ -31,7 +31,7 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
         ).measurementInformation.patientPosition;
     header.B0 = ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
         ).acquisitionSystemInformation.systemFieldStrength_T; % [Tesla]
-    header.center_sample = max(raw_data.head.center_sample);
+    header.center_sample = max(mrd.raw_data.head.center_sample);
     header.grad_raster_time = double(max(mrd.raw_traj.head.sample_time_us ...
         )) * 1e-6; % [usec] * [sec/1e-6 usec] => [sec]
     header.readout_duration = header.grad_samples * header.grad_raster_time; % readout duration [sec]

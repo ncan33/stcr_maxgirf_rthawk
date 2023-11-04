@@ -4,11 +4,11 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     % This function loads Pulseq data, reshapes, and scales the data.
 
     %% Import thirdparty libraries
-    addpath('./thirdparty/pulseq/matlab/');
-    addpath('./thirdparty/mapVBVD/');
-    addpath('./thirdparty/lowfield_maxgirf/geometry/');
-    addpath('./thirdparty/sdc3/');
-    addpath('./thirdparty/ismrmrd/');
+    addpath('./thirdparty/pulseq/matlab')
+    addpath('./thirdparty/mapVBVD')
+    addpath('./thirdparty/lowfield_maxgirf/geometry')
+    addpath('./thirdparty/sdc3')
+    addpath('./thirdparty/ismrmrd/matlab')
  
     %% Load data
     [paths, header] = load_pulseq_file(paths);
