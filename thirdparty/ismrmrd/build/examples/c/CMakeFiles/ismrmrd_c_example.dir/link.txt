@@ -1,0 +1,1 @@
+/usr/bin/cc  -std=c99 -Wall -Werror -O3 -DNDEBUG  -rdynamic CMakeFiles/ismrmrd_c_example.dir/main.c.o  -o ismrmrd_c_example  -Wl,-rpath,/server/home/ncan/ismrmrd/build:/usr/lib/x86_64-linux-gnu/hdf5/serial: ../../libismrmrd.so.1.11.2 /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so -lpthread -lsz -lz -ldl -lm 
