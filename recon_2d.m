@@ -11,8 +11,8 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, useGPU)
     close all; clc
 
     %% Setup paths
-    addpath('./encoding/')
-    addpath('./utility/')
+    addpath(genpath('./encoding/'))
+    addpath(genpath('./utility/'))
     setup()
 
     %% Select which dataset to use [See select_dataset.m]
