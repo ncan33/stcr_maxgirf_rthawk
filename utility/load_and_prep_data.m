@@ -12,7 +12,7 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     %% Load data
     [paths, header] = load_pulseq_file(paths);
     [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, header);
-    
+
     clear g_dcs
     clear mrd
     clear coord

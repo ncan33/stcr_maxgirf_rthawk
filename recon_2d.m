@@ -1,7 +1,6 @@
 function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, useGPU)
-    % Nejat Can
-    % Prakash Kumar
-    % Ecrin Yagiz
+    % Nejat Can, Prakash Kumar, Ecrin Yagiz
+    % 2D gridding recon using a "Fatrix" encoding operator.
 
     arguments
         nr_arms_per_frame = 90/3
@@ -9,13 +8,12 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, useGPU)
         useGPU = 1
     end
 
-    %% 2D gridding recon using a "Fatrix" encoding operator.
-    clear; close all; clc
+    close all; clc
 
     %% Setup paths
-    setup()
     addpath('./encoding/');
     addpath('./utility/');
+    setup()
 
     %% Select which dataset to use [See select_dataset.m]
     area = 'pulseq_lung'; which_file = 0;

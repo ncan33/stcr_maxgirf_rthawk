@@ -1,4 +1,4 @@
-function [kspace, k_rcs, g_dcs, header, mrd] = load_ismrmrd_file(paths, header)
+function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, header)
     %% Load trajectory and kspace
     %--------------------------------------------------------------------------
     % k-space trajectory
