@@ -8,6 +8,7 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     addpath('./thirdparty/mapVBVD/');
     addpath('./thirdparty/lowfield_maxgirf/geometry/');
     addpath('./thirdparty/sdc3/');
+    addpath('./thirdparty/ismrmrd/');
  
     %% Load data
     [paths, header] = load_pulseq_file(paths);
