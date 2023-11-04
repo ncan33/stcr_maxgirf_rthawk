@@ -22,10 +22,8 @@ function [coord] = calculate_coordinate_transformations(header, coord)
     rcs_offset_stack = coord.R_rcs2pcs.' * coord.pcs_offset_stack;
     
     %% Calculate slice offsets in the RCS [m]
-    rcs_offsets = zeros(3, coord.nr_frames, 'double');
-    rcs_offsets(3,:) = (-floor(coord.nr_frames/2):ceil(coord.nr_frames/ ...
-        2)-1).' * coord.slice_thickness * (100 + coord.dist_factor) * 1e-2; % [m]
-    coord.rcs_offsets = rcs_offsets + rcs_offset_stack;
+    rcs_offsets = zeros(3, 1, 'double'); % there is a difference between rcs_offsets and rcs_offset_stack if data is multi-slice. in this case, it's not multi-slice, so we simplify the code (adopted from MaxGIRF)
+    coord.rcs_offsets = rcs_offsets + rcs_offset_stack; 
     
     %% Calculate slice offsets in the PCS [m]
     coord.pcs_offsets = coord.R_rcs2pcs * coord.rcs_offsets;
