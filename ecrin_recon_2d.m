@@ -4,6 +4,7 @@
 clear; close all; clc
 
 %% Setup paths
+setup
 addpath('encoding/');
 
 %% Select which dataset to use [See select_dataset.m]
