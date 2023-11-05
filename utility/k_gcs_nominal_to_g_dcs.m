@@ -1,4 +1,4 @@
-function g_dcs = k_gcs_nominal_to_g_dcs(k_gcs_nominal, header, coord)
+function [g_dcs, g_gcs] = k_gcs_nominal_to_g_dcs(k_gcs_nominal, header, coord)
     %% Define the gyromagnetic ratio for 1H
     gamma = 4257.59 * (1e4 * 2 * pi); % gyromagnetic ratio for 1H [rad/sec/T]
 

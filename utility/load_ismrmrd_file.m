@@ -55,9 +55,9 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     [coord] = calculate_coordinate_transformations(header, coord);
 
     %% Convert nominal trajectory in GCS to GIRF-corrected gradient waveform in DCS
-    [g_dcs] = k_gcs_nominal_to_g_dcs(k_gcs_nominal, header, coord);
+    [g_dcs, g_gcs] = k_gcs_nominal_to_g_dcs(k_gcs_nominal, header, coord);
     
     %% Convert nominal trajectory in GCS to GIRF-corrected gradient waveform in DCS
-    [k_rcs] = g_dcs_to_k_rcs(g_dcs, header);
+    [k_rcs] = g_gcs_to_k_rcs(g_gcs, header, coord);
 
 end
