@@ -20,8 +20,8 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
 
     %% reshape kspace and trajectory
     kspace = permute(squeeze(kspace), [1, 2, 4, 3]);
-    kx = squeeze(k_rcs(1,:,:));
-    ky = squeeze(k_rcs(2,:,:));
+    kx = squeeze(k_rcs(1,:,:)) / (2 * header.krmax); % range of kx is [-0.5, 0.5]
+    ky = squeeze(k_rcs(2,:,:)) / (2 * header.krmax); % range of ky is [-0.5, 0.5]
 
     % trim TR for steady state.
     kspace = kspace(:, TR_to_trim+1:end, :, :);
@@ -51,7 +51,7 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     kx = reshape(kx, [Nsample_k, nr_arms_per_frame, Nframes]);
     ky = reshape(ky, [Nsample_k, nr_arms_per_frame, Nframes]);
 
-    % DCF 
+    % DCF
     DCF = squeeze(calculate_dcf(k_rcs, header));
 
     %pre-weight kspace by sqrt(DCF) and then encode into image.

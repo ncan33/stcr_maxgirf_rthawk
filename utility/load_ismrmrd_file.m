@@ -43,6 +43,9 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     header.nr_samples = double(floor(header.arm_samples * ...
         header.grad_raster_time / header.real_dwell_time));
 
+    %% Maximum k-space value [rad/m]
+    header.krmax = 2 * pi / (header.fov(1) / header.matrix_size(1)) / 2; % [rad/m]
+
     %% Calculate the receiver noise matrix for pre-whitening of kspace (Nc x Nc)
     [~, inv_L] = calculate_receiver_noise_matrix(paths.ismrmrd_noise_file);
 

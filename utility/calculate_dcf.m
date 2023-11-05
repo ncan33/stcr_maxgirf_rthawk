@@ -1,9 +1,6 @@
-function DCF = calculate_dcf(k_rcs, header)
-    %% Calculate the maximum k-space value [rad/m]
-    krmax = 2 * pi / (header.fov(1) / header.matrix_size(1)) / 2; % [rad/m]
-
+function [DCF] = calculate_dcf(k_rcs, header)
     %% Calculate a density compensation function (1 x Nk x Ni)
-    coords = k_rcs / (2 * krmax); % 3 x Nk x Ni
+    coords = k_rcs / (2 * header.krmax); % 3 x Nk x Ni
     coords(3,:,:) = 0;
     numIter = 25;
     verbose = 0;
