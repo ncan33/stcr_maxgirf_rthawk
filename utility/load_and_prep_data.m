@@ -20,8 +20,8 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
 
     %% reshape kspace and trajectory
     kspace = permute(kspace, [1, 2, 4, 3]);
-    kx = k_rcs(1);
-    ky = k_rcs(2);
+    kx = squeeze(k_rcs(1,:,:));
+    ky = squeeze(k_rcs(2,:,:));
 
     % trim TR for steady state.
     kspace = kspace(:, TR_to_trim+1:end, :, :);

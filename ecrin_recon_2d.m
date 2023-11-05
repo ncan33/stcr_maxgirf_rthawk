@@ -25,7 +25,7 @@ ecrin_load_and_prep_data;
 %% Encoding operators:
 
 % construct encoding operator F.
-F = Fnufft_2D(kx, ky, Ncoil, header.matrix_size, useGPU, DCF(:,1), 1, [4,4]);
+F = Fnufft_2D(kx, ky, Ncoil, matrix_size, useGPU, DCF(:,1), 1, [4,4]);
 
 % adjoint test on the operator F (optional).
 test_fatrix_adjoint(F);
