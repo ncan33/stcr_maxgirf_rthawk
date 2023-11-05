@@ -12,12 +12,12 @@ function [paths, header] = load_pulseq_file(paths)
 
     %% Parse parameters
     header.base_resolution = seq.getDefinition('BaseResolution');
-    header.discard_post    = seq.getDefinition('DiscardPost');
     header.discard_pre     = seq.getDefinition('DiscardPre');
     header.real_dwell_time = seq.getDefinition('RealDwellTime'); % [sec]
     header.nr_averages     = seq.getDefinition('Averages');
     header.nr_interleaves  = seq.getDefinition('Interleaves');
     header.grad_samples    = seq.getDefinition('GradSamples');
+    header.arm_samples     = seq.getDefinition('ArmSamples');
     header.fov             = seq.getDefinition('FOV');
     header.slice_thickness = seq.getDefinition('SliceThickness');
 

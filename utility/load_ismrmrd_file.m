@@ -22,24 +22,41 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     mrd.raw_data = mrd.data_dset.readAcquisition();
     
     %% Get header information from ISMRMRD files
+    % durations
+    header.readout_duration = double(header.grad_samples * header.grad_raster_time); % readout duration [sec]
+    header.grad_raster_time = double(max(mrd.raw_traj.head.sample_time_us ...
+        )) * 1e-6; % [usec] * [sec/1e-6 usec] => [sec]
+    
+    % scanner info
+    header.nr_coils = double(max(mrd.raw_data.head.active_channels));
+    header.B0 = double(ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
+        ).acquisitionSystemInformation.systemFieldStrength_T); % [Tesla]
+
+    % acquisition
     header.nr_arms_total = double(max(mrd.raw_data.head.idx.kspace_encode_step_1)) ...
         + 1; % total number of interleaves
-    header.nr_samples = double(mrd.raw_data.head.number_of_samples(1));
-    header.nr_coils = double(max(mrd.raw_data.head.active_channels));
     header.res_m = double(header.res_mm * 10^-3); % meters for MaxGIRF
     header.patient_position = ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
         ).measurementInformation.patientPosition;
-    header.B0 = double(ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
-        ).acquisitionSystemInformation.systemFieldStrength_T); % [Tesla]
-    header.center_sample = double(max(mrd.raw_data.head.center_sample));
-    header.grad_raster_time = double(max(mrd.raw_traj.head.sample_time_us ...
-        )) * 1e-6; % [usec] * [sec/1e-6 usec] => [sec]
-    header.readout_duration = double(header.grad_samples * header.grad_raster_time); % readout duration [sec]
     
+    % number of samples
+    header.center_sample = double(max(mrd.raw_data.head.center_sample));
+    header.nr_samples = double(floor(header.arm_samples * ...
+        header.grad_raster_time / header.real_dwell_time));
+
+    %% Calculate the receiver noise matrix for pre-whitening of kspace (Nc x Nc)
+    [~, inv_L] = calculate_receiver_noise_matrix(paths.ismrmrd_noise_file);
+
     %% Get kspace
-    kspace = zeros(header.nr_samples, header.nr_arms_total, header.nr_coils);
+    samples_index_range = ((header.discard_pre + 1):(header.nr_samples ...
+        + header.discard_pre)).'; % samples to keep
+
+    kspace = zeros(1, header.nr_samples, header.nr_arms_total, header.nr_coils);
     for i = 1:header.nr_arms_total
-        kspace(:, i, :) = mrd.raw_data.data{i};
+        readout = mrd.raw_data.data{i}; % load readout (Nk x Nc)
+        readout = (inv_L * readout.').'; % pre-whiten raw data
+        kspace(:,:,i,:) = reshape(readout(samples_index_range,:), ...
+            [1 header.nr_samples 1 header.nr_coils]); % kspace will be (1 x Nk x Narm_tot x Nc)
     end
 
     %% Get nominal trajectory in GCS

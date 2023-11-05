@@ -19,7 +19,7 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     clear coord
 
     %% reshape kspace and trajectory
-    kspace = permute(kspace, [1, 2, 4, 3]);
+    kspace = permute(squeeze(kspace), [1, 2, 4, 3]);
     kx = squeeze(k_rcs(1,:,:));
     ky = squeeze(k_rcs(2,:,:));
 
