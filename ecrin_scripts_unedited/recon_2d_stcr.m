@@ -3,8 +3,8 @@
 
 clear; close all; clc
 
-addpath('encoding/');
-addpath('utility/');
+addpath('../encoding/');
+addpath('../utility/');
 
 %% load data
 path = "/server/home/pkumar/mri_data/disc/speech/vol0634_20230601/raw_hawk/";
@@ -55,7 +55,7 @@ DCF = kspace_info.DCF;
 
 %% Encoding operators:
 % construct encoding operator F.
-F = Fnufft_2D(kx, ky, Ncoil, matrix_size, useGPU, ones(size(DCF(:,1))), 2, [4,4]);
+F = Fnufft_2D(kx, ky, Ncoil, matrix_size, useGPU, DCF(:,1), 2, [4,4]);
 
 % adjoint test on the operator F (optional).
 test_fatrix_adjoint(F);
@@ -76,7 +76,7 @@ scale = max(abs(image_coil_combined(:)));
 
 
 %% to run NCG, need to define B, gradF, curvf, x0, niter, ninner, P, betahow, fun
-addpath('optim');
+addpath('../optim');
 
 % Define potiential function as fair-l1.
 l1_func = potential_fun('fair-l1', 0.2);

@@ -13,7 +13,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, useGPU)
     %% Setup paths
     addpath(genpath('./encoding/'))
     addpath(genpath('./utility/'))
-    setup()
+    addpath('./thirdparty')
 
     %% Select which dataset to use [See select_dataset.m]
     area = 'pulseq_lung'; which_file = 1;

@@ -32,18 +32,21 @@ clear; close all; clc
 
 %% Setup paths
 restoredefaultpath
-addpath('encoding/');
-addpath('utility/');
-addpath('optim');
-setup
+run('../utility/setup.m')
+addpath('../encoding/')
+addpath('../utility/')
+addpath('../optim')
+addpath('../')
 
 %% Select which dataset to use [See select_dataset.m]
-area = 'cardiac';   which_file = 0;
-select_dataset;
+area = 'speech';   which_file = 0;
+paths = select_dataset(area, which_file);
+path = paths.path;
+name = paths.name;
 
 %% Recon Related Parameters here
-Narms_per_frame = 8;               % [integer], input to prep function, 13 for speech, 8 for cardiac
-TRtoTrim = 160;                     % [integer], input to prep function
+Narms_per_frame = 13;               % [integer], input to prep function, 13 for speech, 8 for cardiac
+TRtoTrim = 150;                     % [integer], input to prep function
 
 useGPU = 1;
 oversampling = 2;
@@ -144,13 +147,6 @@ as(img_recon);
 out = cell2mat(out);
 Cost = structArrayToStructWithArrays(out);
 plotCost(Cost);
-
-%% Example of how to look at the line plot
-% disp('Put a Line in the Figure1 to see a line profile')
-% [profiles, lines] = draw_profile_(abs(img_recon));
-
-%% save video.
-save_video("test.avi", img_recon, 0, 1000 / (kspace_info.user_TR * Narms_per_frame / 1000), false, 1/2);
 
 %% Helper Functions
 % COST
