@@ -3,8 +3,8 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, useGPU)
     % 2D gridding recon using a "Fatrix" encoding operator.
 
     arguments
-        nr_arms_per_frame = 30
-        TR_to_trim = nr_arms_per_frame * 20
+        nr_arms_per_frame = 90
+        TR_to_trim = 0
         useGPU = 1
     end
 
