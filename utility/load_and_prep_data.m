@@ -43,13 +43,13 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     ky = ky(:, view_order);
 
     % reshape kspace
-    kspace = reshape(kspace, [Nsample, Narms_per_frame, Nframes, header.nr_coils]);
+    kspace = reshape(kspace, [Nsample, nr_arms_per_frame, Nframes, header.nr_coils]);
 
     Nsample_k = size(kx, 1);
 
     % reshape trajectory
-    kx = reshape(kx, [Nsample_k, Narms_per_frame, Nframes]);
-    ky = reshape(ky, [Nsample_k, Narms_per_frame, Nframes]);
+    kx = reshape(kx, [Nsample_k, nr_arms_per_frame, Nframes]);
+    ky = reshape(ky, [Nsample_k, nr_arms_per_frame, Nframes]);
 
     % DCF 
     DCF = squeeze(calculate_dcf(k_rcs, header));
