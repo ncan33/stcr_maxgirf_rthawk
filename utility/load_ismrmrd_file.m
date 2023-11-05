@@ -23,9 +23,9 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     
     %% Get header information from ISMRMRD files
     % durations
-    header.readout_duration = double(header.grad_samples * header.grad_raster_time); % readout duration [sec]
     header.grad_raster_time = double(max(mrd.raw_traj.head.sample_time_us ...
         )) * 1e-6; % [usec] * [sec/1e-6 usec] => [sec]
+    header.readout_duration = double(header.grad_samples * header.grad_raster_time); % readout duration [sec]
     
     % scanner info
     header.nr_coils = double(max(mrd.raw_data.head.active_channels));
@@ -35,7 +35,6 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     % acquisition
     header.nr_arms_total = double(max(mrd.raw_data.head.idx.kspace_encode_step_1)) ...
         + 1; % total number of interleaves
-    header.res_m = double(header.res_mm * 10^-3); % meters for MaxGIRF
     header.patient_position = ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
         ).measurementInformation.patientPosition;
     

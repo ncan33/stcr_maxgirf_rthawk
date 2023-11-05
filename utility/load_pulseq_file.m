@@ -22,11 +22,11 @@ function [paths, header] = load_pulseq_file(paths)
     header.slice_thickness = seq.getDefinition('SliceThickness');
 
     %% Get resolution and matrix size
-    res_x = header.base_resolution / (header.fov(1) * 1000); % units: mm
-    res_y = header.base_resolution / (header.fov(1) * 1000); % units: mm
-    header.res_mm = [res_x, res_y]; % units: mm
+    res_x = (header.base_resolution / (header.fov(1) * 1000)) / 1000; % units: mm
+    res_y = (header.base_resolution / (header.fov(2) * 1000)) / 1000; % units: mm
+    header.res = [res_x, res_y]; % units: m
 
-    header.matrix_size = ceil([header.fov(1), header.fov(2)] ./ header.res_mm);
+    header.matrix_size = ceil([header.fov(1), header.fov(2)] ./ header.res);
 
     %% Adjustments for dynamic recon
     header.nr_fully_sampled_frames = header.nr_averages;  

@@ -6,7 +6,7 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     %% Import thirdparty libraries
     addpath(genpath('./thirdparty/pulseq/matlab'))
     addpath(genpath('./thirdparty/mapVBVD'))
-    addpath(genpath('./thirdparty/lowfield_maxgirf/geometry'))
+    addpath(genpath('./thirdparty/lowfield_maxgirf'))
     addpath(genpath('./thirdparty/sdc3'))
     addpath(genpath('./thirdparty/ismrmrd'))
  
