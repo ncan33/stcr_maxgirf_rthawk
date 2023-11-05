@@ -39,19 +39,27 @@ function paths = select_dataset(area, which_file)
         case 'pulseq_lung'
             switch which_file
                 % -------------------------------------------------------------
-                % TR = 9 ms
+                % Breath-hold, TR = 9 ms
                 case 0 
                     paths.folder = '/server/sdata/ncan/mri_data/disc/lung/vol0729_20231019';
                     paths.name = 'meas_MID00483_FID10137_tr_9_breath_hold';
                     paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.h5';
                     paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.seq';
                 % -------------------------------------------------------------
-                % TR = 12 ms
+                % Breath-hold, TR = 12 ms
                 case 1
                     paths.folder = '/server/sdata/ncan/mri_data/disc/lung/vol0729_20231019';
-                    paths.name = 'meas_MID00483_FID10137_tr_9_breath_hold';
-                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.h5';
-                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR9.06_i90_avg36.seq';
+                    paths.name = 'meas_MID00486_FID10139_tr_12_breath_hold';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.seq';
+                % -------------------------------------------------------------
+                % Free-breathing, TR = 12 ms
+                case 2
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/lung/vol0729_20231019';
+                    paths.name = 'meas_MID00488_FID10141_tr_12_freebreathing';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.seq';
+                
             end
     end
 end
