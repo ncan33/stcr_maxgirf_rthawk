@@ -27,8 +27,8 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     header.nr_samples = double(mrd.raw_data.head.number_of_samples(1));
     header.nr_coils = double(max(mrd.raw_data.head.active_channels));
     header.res_m = double(header.res_mm * 10^-3); % meters for MaxGIRF
-    header.patient_position = double(ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
-        ).measurementInformation.patientPosition);
+    header.patient_position = ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
+        ).measurementInformation.patientPosition;
     header.B0 = double(ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
         ).acquisitionSystemInformation.systemFieldStrength_T); % [Tesla]
     header.center_sample = double(max(mrd.raw_data.head.center_sample));
