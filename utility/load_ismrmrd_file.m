@@ -22,19 +22,19 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     mrd.raw_data = mrd.data_dset.readAcquisition();
     
     %% Get header information from ISMRMRD files
-    header.nr_arms_total = max(mrd.raw_data.head.idx.kspace_encode_step_1) ...
+    header.nr_arms_total = double(max(mrd.raw_data.head.idx.kspace_encode_step_1)) ...
         + 1; % total number of interleaves
-    header.nr_samples = mrd.raw_data.head.number_of_samples(1);
-    header.nr_coils = max(mrd.raw_data.head.active_channels);
-    header.res_m = header.res_mm * 10^-3; % meters for MaxGIRF
-    header.patient_position = ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
-        ).measurementInformation.patientPosition;
-    header.B0 = ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
-        ).acquisitionSystemInformation.systemFieldStrength_T; % [Tesla]
-    header.center_sample = max(mrd.raw_data.head.center_sample);
+    header.nr_samples = double(mrd.raw_data.head.number_of_samples(1));
+    header.nr_coils = double(max(mrd.raw_data.head.active_channels));
+    header.res_m = double(header.res_mm * 10^-3); % meters for MaxGIRF
+    header.patient_position = double(ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
+        ).measurementInformation.patientPosition);
+    header.B0 = double(ismrmrd.xml.deserialize(mrd.data_dset.readxml ...
+        ).acquisitionSystemInformation.systemFieldStrength_T); % [Tesla]
+    header.center_sample = double(max(mrd.raw_data.head.center_sample));
     header.grad_raster_time = double(max(mrd.raw_traj.head.sample_time_us ...
         )) * 1e-6; % [usec] * [sec/1e-6 usec] => [sec]
-    header.readout_duration = header.grad_samples * header.grad_raster_time; % readout duration [sec]
+    header.readout_duration = double(header.grad_samples * header.grad_raster_time); % readout duration [sec]
     
     %% Get kspace
     kspace = zeros(header.nr_samples, header.nr_arms_total, header.nr_coils);
