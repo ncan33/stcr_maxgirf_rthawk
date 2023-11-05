@@ -57,7 +57,7 @@ Nlineiter   = 20;                     % Max number of it for Line Search
 betahow     = 'GD';                   % NCG Update Methods
 linesearch_how  = 'mm';        % Line Search Method
 %% Load Data and prep
-load_and_prep_data;
+ecrin_load_and_prep_data;
 
 %% Encoding operators 
 

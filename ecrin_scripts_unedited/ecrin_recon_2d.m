@@ -5,7 +5,8 @@ clear; close all; clc
 
 %% Setup paths
 setup
-addpath('encoding/');
+addpath('../encoding/');
+addpath('../')
 
 %% Select which dataset to use [See select_dataset.m]
 area = 'speech';   which_file = 0;
