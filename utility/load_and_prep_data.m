@@ -17,8 +17,11 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
     clear g_dcs
     clear mrd
     clear coord
+    
+    %% Ensure that nr_arms_per_frame <= nr_interleaves
+    check_for_errors(nr_arms_per_frame, header);
 
-    %% reshape kspace and trajectory
+    %% Reshape kspace and trajectory
     kspace = permute(squeeze(kspace), [1, 2, 4, 3]);
     kx = squeeze(k_rcs(1,:,:)) / (2 * header.krmax); % range of kx is [-0.5, 0.5]
     ky = squeeze(k_rcs(2,:,:)) / (2 * header.krmax); % range of ky is [-0.5, 0.5]
