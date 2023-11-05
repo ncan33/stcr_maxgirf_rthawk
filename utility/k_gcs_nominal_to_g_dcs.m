@@ -25,7 +25,7 @@ function g_dcs = k_gcs_nominal_to_g_dcs(k_gcs_nominal, header, coord)
     tRR = 1;
     sR.R = coord.R_gcs2dcs;
     sR.T = header.B0;
-    [~,g_gcs] = apply_GIRF(permute(g_gcs_nominal, [2 3 1]), ...
+    [~,g_gcs] = apply_GIRF(permute(g_gcs_nominal_interp, [2 3 1]), ...
         header.real_dwell_time, sR, tRR); % k:[cycle/cm] and g:[G/cm]
     g_gcs = permute(g_gcs, [3 1 2]); % Nk x Ni x 3 => 3 x Nk x Ni
 
