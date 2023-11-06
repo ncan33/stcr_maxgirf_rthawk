@@ -161,7 +161,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     %% save video.
     %save_video("test.avi", img_recon, 0, 1000 / (kspace_info.user_TR * Narms_per_frame / 1000), false, 1/2);
 
-    %% Helper Functions
+    %% Helper functions
     % COST
     function [struct] = each_iter_fun(F, C, T_tfd, T_tv, lambdaTFD, lambdatTV, l1_func, kspace, x, y)
         % added normalization
