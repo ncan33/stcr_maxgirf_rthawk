@@ -39,7 +39,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
         weight_tTV = 0.01
         weight_sTV = 0.001
         delta = 0.2
-        area = 'lung'
+        area = 'pulseq_lung'
         which_file = 1
         useGPU = 1
     end
@@ -71,7 +71,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     %% Encoding
 
     % construct encoding operator F
-    F = Fnufft_2D(kx, ky, Ncoil, matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+    F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
 
     % --------- adjoint test on the operator F (optional). --------------------
     test_fatrix_adjoint(F);

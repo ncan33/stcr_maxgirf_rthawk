@@ -27,7 +27,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     nr_arms_per_frame, TR_to_trim, paths);
 
     %% Encoding
-    oversampling = 1;
+    oversampling = 1; % oversampling factor
 
     % construct encoding operator F
     F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
