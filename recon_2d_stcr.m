@@ -1,46 +1,17 @@
 function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ...
     weight_sTV, delta, area, which_file, useGPU)
-    % written by Nejat Can
-    % template by Prakash Kumar and Ecrin Yagiz
-    %
+    % Written by Nejat Can. Template by Prakash Kumar and Ecrin Yagiz
     % img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, area, which_file, useGPU)
     % 2D STCR recon using a "Fatrix" encoding operator.
-
-    %   spatially and temporally constrained reconstruction (STCR):
-    %
-    %   || Em - d ||_2^2 + lambda_t || TV_t m ||_1 + lambda_s || TV_s m ||_1
-    %                  
-    %
-    %   "E"         sampling matrix includes sensitivity maps, Fourier 
-    %               transform, and undersampling mask
-    %   "m"         image to be reconstructed
-    %   "d"         measured k-space data
-    %   ||.||_2^2   l2 norm
-    %   ||.||_1     l1 norm
-    %   "lambda_t"  temporal constraint weight
-    %   "lambda_s"  sparial constraint weight
-    %
-    %   TV_t        temporal total variation (TV) operator (finite difference)
-    %               sqrt( abs(m_t+1 - m_t)^2 + epsilon )
-    %   "epsilon"   small term to aviod singularity
-    %   TV_s        spatial TV operator
-    %               sqrt( abs(m_x+1 - m_x)^2 + abs(m_y+1 - m_y) + epsilon )
-    %   TV_cp       TV along the cardiac dimension. image "m" is sorted.
-    %               sqrt(abs(m_c+1 - m_c)^2 + epsilon)
-    %--------------------------------------------------------------------------
-    %   Reference:
-    %           [1] Acquisition and reconstruction of undersampled radial data 
-    %               for myocardial perfusion MRI. JMRI, 2009, 29(2):466-473.
-    %--------------------------------------------------------------------------
     
     arguments
-        nr_arms_per_frame = 17
-        TR_to_trim = 1500
-        weight_tTV = 0.01
-        weight_sTV = 0.001
+        nr_arms_per_frame = 30
+        TR_to_trim = 2000
+        weight_tTV = 0.02
+        weight_sTV = 0.005
         delta = 0.2
         area = 'pulseq_lung'
-        which_file = 1
+        which_file = 2
         useGPU = 1
     end
 
@@ -63,7 +34,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     oversampling = 1; % define the oversampling factor
 
     % Solver Parameters
-    Nmaxiter    = 250; % Max number of iterations
+    Nmaxiter    = 150; % Max number of iterations
     Nlineiter   = 20; % Max number of it for Line Search
     betahow     = 'GD'; % NCG Update Methods
     linesearch_how  = 'mm'; % Line Search Method
@@ -145,8 +116,8 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
 
     %% Display the Result
     img_recon = gather(x);
-    img_recon = imrotate(fliplr(img_recon), 90);
-    img_recon = crop_half_FOV(img_recon);
+    img_recon = rot90(img_recon, 2);
+    %img_recon = crop_half_FOV(img_recon);
 
     as(img_recon);
 
