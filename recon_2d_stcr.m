@@ -6,7 +6,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     
     arguments
         nr_arms_per_frame = 30
-        TR_to_trim = 2000
+        TR_to_trim = 1000
         weight_tTV = 0.02
         weight_sTV = 0.005
         delta = 0.2
@@ -18,6 +18,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     close all
 
     %% Setup paths
+    run('utility/setup.m')
     addpath(genpath('./encoding/'))
     addpath(genpath('./utility/'))
     addpath('./thirdparty/')
@@ -34,7 +35,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     oversampling = 1; % define the oversampling factor
 
     % Solver Parameters
-    Nmaxiter    = 150; % Max number of iterations
+    Nmaxiter    = 100; % Max number of iterations
     Nlineiter   = 20; % Max number of it for Line Search
     betahow     = 'GD'; % NCG Update Methods
     linesearch_how  = 'mm'; % Line Search Method
@@ -42,7 +43,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     %% Encoding
 
     % construct encoding operator F
-    F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+    F = maxgirf_Fnufft_2D(kx, ky, kx, ky, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
 
     % --------- adjoint test on the operator F (optional). --------------------
     test_fatrix_adjoint(F);
@@ -119,7 +120,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     img_recon = rot90(img_recon, 2);
     %img_recon = crop_half_FOV(img_recon);
 
-    as(img_recon);
+    %as(img_recon);
 
     out = cell2mat(out);
     Cost = structArrayToStructWithArrays(out);
