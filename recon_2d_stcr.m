@@ -34,8 +34,8 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     %--------------------------------------------------------------------------
     
     arguments
-        nr_arms_per_frame = 61
-        TR_to_trim = 0
+        nr_arms_per_frame = 17
+        TR_to_trim = 1500
         weight_tTV = 0.01
         weight_sTV = 0.001
         delta = 0.2
@@ -60,10 +60,10 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     nr_arms_per_frame, TR_to_trim, paths);
 
     %% Define recon parameters
-    oversampling = 2; % define the oversampling factor
+    oversampling = 1; % define the oversampling factor
 
     % Solver Parameters
-    Nmaxiter    = 150; % Max number of iterations
+    Nmaxiter    = 250; % Max number of iterations
     Nlineiter   = 20; % Max number of it for Line Search
     betahow     = 'GD'; % NCG Update Methods
     linesearch_how  = 'mm'; % Line Search Method
