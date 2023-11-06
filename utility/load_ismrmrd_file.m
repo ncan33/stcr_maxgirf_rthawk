@@ -1,4 +1,4 @@
-function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, header)
+function [kspace, k_rcs, header, maxgirf_vars] = load_ismrmrd_file(paths, header)
     %% Load trajectory and kspace
     %--------------------------------------------------------------------------
     % k-space trajectory
@@ -78,5 +78,10 @@ function [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, h
     
     %% Convert nominal trajectory in GCS to GIRF-corrected gradient waveform in DCS
     [k_rcs] = g_gcs_to_k_rcs(g_gcs, header, coord);
+
+    %% Store variables needed by MaxGIRF into a struct called maxgirf_vars
+    maxgirf_vars.g_dcs = g_dcs;
+    maxgirf_vars.mrd = mrd;
+    maxgirf_vars.coord = coord;
 
 end

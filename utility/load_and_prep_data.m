@@ -1,4 +1,4 @@
-function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
+function [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
     nr_arms_per_frame, TR_to_trim, paths)
     
     % This function loads Pulseq data, reshapes, and scales the data.
@@ -12,11 +12,15 @@ function [kspace, kx, ky, header, DCF] = load_and_prep_data( ...
  
     %% Load data
     [paths, header] = load_pulseq_file(paths);
-    [kspace, k_rcs, g_dcs, header, mrd, coord] = load_ismrmrd_file(paths, header);
+    [kspace, k_rcs, header, maxgirf_vars] = load_ismrmrd_file(paths, header);
+    
+    %{
+    MaxGIRF snippet to use later:
 
-    clear g_dcs
-    clear mrd
-    clear coord
+    g_dcs = maxgirf_vars.g_dcs;
+    mrd = maxgirf_vars.mrd;
+    coord = maxgirf_vars.coord;
+    %}
     
     %% Reshape kspace and trajectory
     kspace = permute(squeeze(kspace), [1, 2, 4, 3]);

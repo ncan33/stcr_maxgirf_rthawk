@@ -1,14 +1,6 @@
 function paths = select_dataset(area, which_file)
-    % Select a dataset to use.
-    % Pre-selected datasets one good and one bad each.
-    % -------------------------------------------------------------------------
-    % Summary of the datasets are here:
-    % 
-    % Cardiac:
-    % 
-    % Speech:
-    % 
-    % -------------------------------------------------------------------------
+    % paths = select_dataset(area, which_file)
+    % Select a dataset.
 
     switch area
         % ---------------------------------------------------------------------
