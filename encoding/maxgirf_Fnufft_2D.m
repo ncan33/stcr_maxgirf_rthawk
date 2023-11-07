@@ -68,22 +68,24 @@ ob = fatrix2('idim', idim, 'odim', odim, ...
 end
 
 function y = maxgirf_Fnufft_forw(arg, x, u, v)
-    [nx, ny, ~, ~] = size(x);
-    %y = NUFFT.NUFFT(x, arg) / sqrt(nx * ny);
-    y = y .* arg.W;  % multiply by sqrt(dcf).
+    [nx, ny, nframe, ncoil] = size(x);
     
-    
-    nframe = size(x, 3);
-    ncoil = size(x, 4);
-    
-    y = zeros(, , nframe, ncoil);
-    size_y = size(y);
+    y = zeros([arg.size_data ncoil]);
     
     L = size(u, 2);
     for ell = 1:L
-        FHDuHd = NUFFT.NUFFT_adj(conj(u(:, ell, :)) .* y, arg) * sqrt(matrix_size(1) * matrix_size(2));
-        y = y + reshape(v(:,ell) .* reshape(FHDuHd, [prod(matrix_size), nframe, ncoil]), size_x);
+
+        x_reshaped = reshape(x, [nx*ny, nframe, ncoil]);
+        x_reshaped = permute(x_reshaped, [1, 4, 2, 3]);
+
+        vx = conj(v(:,ell,:)) .* x_reshaped;
+
+        FDvHSm = NUFFT.NUFFT(reshape(vx, [nx ny nframe ncoil]), arg) / sqrt(nx * ny);
+
+        y = y + u(:,ell,:) .* FDvHSm;
     end
+
+    y = y .* arg.W;  % multiply by sqrt(dcf).
 end
 
 
