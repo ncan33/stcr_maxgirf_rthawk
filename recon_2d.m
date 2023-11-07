@@ -5,7 +5,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     % 2D gridding recon using a "Fatrix" encoding operator.
 
     arguments
-        nr_arms_per_frame = 100
+        nr_arms_per_frame = 60
         TR_to_trim = 20*100
         maxgirf_flag = 0
         area = 'pulseq_lung'
@@ -16,6 +16,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     close all
 
     %% Setup paths
+    run('utility/setup.m')
     addpath(genpath('./encoding/'))
     addpath(genpath('./utility/'))
     addpath('./thirdparty')
@@ -58,5 +59,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     C = C_2D(size(image), sens);
     image_coil_combined = C' * image;
 
+    image_coil_combined = rot90(image_coil_combined, 2);
+    
 end
  

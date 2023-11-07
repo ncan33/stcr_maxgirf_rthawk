@@ -5,14 +5,14 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     % 2D STCR recon using a "Fatrix" encoding operator.
     
     arguments
-        nr_arms_per_frame = 60
-        TR_to_trim = 20*100
-        maxgirf_flag = 0
-        weight_tTV = 0.02
-        weight_sTV = 0.005
+        nr_arms_per_frame = 30
+        TR_to_trim = 30*61
+        maxgirf_flag = 1
+        weight_tTV = 0.05
+        weight_sTV = 0.01
         delta = 0.2
         area = 'pulseq_lung'
-        which_file = 4
+        which_file = 2
         useGPU = 1
     end
 
@@ -36,7 +36,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     oversampling = 1; % define the oversampling factor
 
     % Solver Parameters
-    Nmaxiter    = 100; % Max number of iterations
+    Nmaxiter    = 80; % Max number of iterations
     Nlineiter   = 20; % Max number of it for Line Search
     betahow     = 'GD'; % NCG Update Methods
     linesearch_how  = 'mm'; % Line Search Method
