@@ -39,9 +39,9 @@ function [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
     
     k = zeros(nr_samples, para.Nl, nr_arms_per_frame, nr_frames);
     for frame = 1:nr_frames
-        gx = reshape(g_dcs(1, :, :, frame), [nr_samples nr_interleaves]);
-        gy = reshape(g_dcs(2, :, :, frame), [nr_samples nr_interleaves]);
-        gz = reshape(g_dcs(3, :, :, frame), [nr_samples nr_interleaves]);
+        gx = reshape(g_dcs(1, :, :, frame), [nr_samples nr_arms_per_frame]);
+        gy = reshape(g_dcs(2, :, :, frame), [nr_samples nr_arms_per_frame]);
+        gz = reshape(g_dcs(3, :, :, frame), [nr_samples nr_arms_per_frame]);
 
         k(:, :, :, frame) = calculate_concomitant_field_coefficients( ...
             gx, gy, gz, para.Nl, header.B0, gamma, header.real_dwell_time);
