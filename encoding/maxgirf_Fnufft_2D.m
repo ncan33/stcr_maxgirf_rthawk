@@ -69,8 +69,21 @@ end
 
 function y = maxgirf_Fnufft_forw(arg, x, u, v)
     [nx, ny, ~, ~] = size(x);
-    y = NUFFT.NUFFT(x, arg) / sqrt(nx * ny);
+    %y = NUFFT.NUFFT(x, arg) / sqrt(nx * ny);
     y = y .* arg.W;  % multiply by sqrt(dcf).
+    
+    
+    nframe = size(x, 3);
+    ncoil = size(x, 4);
+    
+    y = zeros(, , nframe, ncoil);
+    size_y = size(y);
+    
+    L = size(u, 2);
+    for ell = 1:L
+        FHDuHd = NUFFT.NUFFT_adj(conj(u(:, ell, :)) .* y, arg) * sqrt(matrix_size(1) * matrix_size(2));
+        y = y + reshape(v(:,ell) .* reshape(FHDuHd, [prod(matrix_size), nframe, ncoil]), size_x);
+    end
 end
 
 
