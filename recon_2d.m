@@ -45,7 +45,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     end
 
     % adjoint test on the operator F (optional)
-    %test_fatrix_adjoint(F);
+    test_fatrix_adjoint(F);
     
     % encode kspace into image
     image = F' * kspace;
