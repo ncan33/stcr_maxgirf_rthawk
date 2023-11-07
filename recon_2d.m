@@ -7,7 +7,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     arguments
         nr_arms_per_frame = 61
         TR_to_trim = 0
-        maxgirf_flag = 1
+        maxgirf_flag = 0
         area = 'pulseq_lung'
         which_file = 1
         useGPU = 1
@@ -26,15 +26,15 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     %% Load data and prep
     [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
     nr_arms_per_frame, TR_to_trim, paths);
-
-    %% Calculate MaxGIRF higher-order encoding matrix (u and v)
-    [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
-        TR_to_trim, header, maxgirf_vars);
     
     %% Encoding
     oversampling = 1; % oversampling factor
 
     if maxgirf_flag == true
+        %% Calculate MaxGIRF higher-order encoding matrix (u and v)
+        [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
+            TR_to_trim, header, maxgirf_vars);
+        %% Encoding matrix with MaxGIRF
         F = maxgirf_Fnufft_2D(kx, ky, u, v, para, header.nr_coils, ...
             header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
     elseif maxgirf_flag == false
@@ -45,7 +45,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     end
 
     % adjoint test on the operator F (optional)
-    test_fatrix_adjoint(F);
+    %test_fatrix_adjoint(F);
     
     % encode kspace into image
     image = F' * kspace;

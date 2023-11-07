@@ -1,4 +1,4 @@
-function [r_dcs] = calculate_slice_offsets(coord)
+function [r_dcs] = calculate_slice_offsets(header, coord)
     %% Calculate a slice offset in the PCS [m]
     pcs_offsets = coord.pcs_offsets;
 

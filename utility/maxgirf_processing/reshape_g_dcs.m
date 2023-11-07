@@ -1,5 +1,5 @@
 function g_dcs = reshape_g_dcs(g_dcs, nr_samples, nr_arms_per_frame, ...
-    nr_frames, view_order)
+    nr_frames, nr_arms_total, nr_interleaves, view_order)
     
     g_dcs_new = zeros(3, nr_samples, nr_arms_per_frame, nr_frames);
     for i = 1:3
