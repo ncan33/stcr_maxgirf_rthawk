@@ -51,7 +51,20 @@ function paths = select_dataset(area, which_file)
                     paths.name = 'meas_MID00488_FID10141_tr_12_freebreathing';
                     paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.h5';
                     paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.seq';
-                
+                % -------------------------------------------------------------
+                % Breath-hold, TR = 7 ms
+                case 3
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/lung/vol0731_20231021';
+                    paths.name = 'meas_MID00073_FID10425_cor_6ms_lung_breathhold';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR7.22_i100_avg42.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR7.22_i100_avg42.seq';
+                % -------------------------------------------------------------
+                % Free-breathing, TR = 7 ms
+                case 4
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/lung/vol0731_20231021';
+                    paths.name = 'meas_MID00074_FID10426_cor_6ms_lung_freebreathing';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR7.22_i100_avg42.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR7.22_i100_avg42.seq';
             end
     end
 end
