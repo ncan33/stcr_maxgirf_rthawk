@@ -1,17 +1,18 @@
-function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ...
-    weight_sTV, delta, area, which_file, useGPU)
+function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
+    maxgirf_flag, weight_tTV, weight_sTV, delta, area, which_file, useGPU)
     % Written by Nejat Can. Template by Prakash Kumar and Ecrin Yagiz
     % img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, area, which_file, useGPU)
     % 2D STCR recon using a "Fatrix" encoding operator.
     
     arguments
-        nr_arms_per_frame = 30
-        TR_to_trim = 1000
+        nr_arms_per_frame = 60
+        TR_to_trim = 20*100
+        maxgirf_flag = 0
         weight_tTV = 0.02
         weight_sTV = 0.005
         delta = 0.2
         area = 'pulseq_lung'
-        which_file = 2
+        which_file = 4
         useGPU = 1
     end
 
@@ -28,7 +29,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     paths = select_dataset(area, which_file);
 
     %% Load Data and prep
-    [kspace, kx, ky, header, ~, DCF] = load_and_prep_data( ...
+    [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
     nr_arms_per_frame, TR_to_trim, paths);
 
     %% Define recon parameters
@@ -41,12 +42,23 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
     linesearch_how  = 'mm'; % Line Search Method
 
     %% Encoding
+    if maxgirf_flag == true
+        %% Calculate MaxGIRF higher-order encoding matrix (u and v)
+        [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
+            TR_to_trim, header, maxgirf_vars);
 
-    % construct encoding operator F
-    F = maxgirf_Fnufft_2D(kx, ky, kx, ky, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
-
+        %% Encoding matrix with MaxGIRF
+        F = maxgirf_Fnufft_2D(kx, ky, u, v, para, header.nr_coils, ...
+            header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+    elseif maxgirf_flag == false
+        F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, ...
+            useGPU, DCF(:,1), oversampling, [4,4]);
+    else
+        error('The parameter maxgirf_flag must be set to either 1 or 0.')
+    end
+    
     % --------- adjoint test on the operator F (optional). --------------------
-    test_fatrix_adjoint(F);
+    %test_fatrix_adjoint(F);
 
     % encode kspace into image
     image = F' * kspace;
@@ -142,6 +154,5 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, weight_tTV, ..
         struct.spatialNorm = sum(vec(lambdatTV * l1_func.potk(T_tv * x))) / N;
         struct.temporalNorm = sum(vec(lambdaTFD * l1_func.potk(T_tfd * x))) / N;
         struct.totalCost = struct.fidelityNorm + struct.spatialNorm + struct.temporalNorm;
-
     end
 end
