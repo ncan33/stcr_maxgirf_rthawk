@@ -14,14 +14,6 @@ function [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
     [paths, header] = load_pulseq_file(paths);
     [kspace, k_rcs, header, maxgirf_vars] = load_ismrmrd_file(paths, header);
     
-    %{
-    MaxGIRF snippet to use later:
-
-    g_dcs = maxgirf_vars.g_dcs;
-    mrd = maxgirf_vars.mrd;
-    coord = maxgirf_vars.coord;
-    %}
-    
     %% Reshape kspace and trajectory
     kspace = permute(squeeze(kspace), [1, 2, 4, 3]);
     kx = squeeze(k_rcs(1,:,:)) / (2 * header.krmax); % range of kx is [-0.5, 0.5]
@@ -29,10 +21,12 @@ function [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
 
     % trim TR for steady state.
     kspace = kspace(:, TR_to_trim+1:end, :, :);
-    view_order = header.view_order(TR_to_trim+1:end);
+    view_order = header.view_order;
+    view_order = view_order(TR_to_trim+1:end);
+    header.trimmed_view_order = view_order;
 
     GA_steps = size(kx, 2);
-    Narms_total = size(kspace, 2);
+    Narms_total = size(kspace, 2); header.Narms_total = Narms_total;
     Nframes = floor(Narms_total / nr_arms_per_frame);
     Narms_total = Nframes * nr_arms_per_frame;
     Nsample = size(kspace, 1);

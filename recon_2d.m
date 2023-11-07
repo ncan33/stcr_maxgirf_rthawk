@@ -7,7 +7,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     arguments
         nr_arms_per_frame = 61
         TR_to_trim = 0
-        area = 'lung'
+        area = 'pulseq_lung'
         which_file = 1
         useGPU = 1
     end
@@ -22,15 +22,19 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     %% Select which dataset to use [See select_dataset.m]
     paths = select_dataset(area, which_file);
 
-    %% Load Data and prep
-    [kspace, kx, ky, header, ~, DCF] = load_and_prep_data( ...
+    %% Load data and prep
+    [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
     nr_arms_per_frame, TR_to_trim, paths);
 
+    %% Calculate MaxGIRF higher-order encoding matrix (u and v)
+    [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
+        TR_to_trim, k_rcs, DCF, paths, header, maxgirf_vars);
+    
     %% Encoding
     oversampling = 1; % oversampling factor
 
     % construct encoding operator F
-    F = maxgirf_Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+    F = maxgirf_Fnufft_2D(kx, ky, u, v, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
 
     % adjoint test on the operator F (optional)
     test_fatrix_adjoint(F);
