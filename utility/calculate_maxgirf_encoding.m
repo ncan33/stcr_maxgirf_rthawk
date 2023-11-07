@@ -27,10 +27,10 @@ function [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
     view_order(nr_arms_total + 1 : end) = [];
     header.view_order_trimmed = view_order;
     
-    %g_dcs = reshape_g_dcs(g_dcs, nr_samples, nr_arms_per_frame, ...
-    %    nr_frames, nr_arms_total, nr_interleaves, view_order);
+    g_dcs = reshape_g_dcs(g_dcs, nr_samples, nr_arms_per_frame, ...
+        nr_frames, nr_arms_total, nr_interleaves, view_order);
 
-    g_dcs = repmat(g_dcs, [1, 1, 1, nr_frames]);
+    %g_dcs = repmat(g_dcs, [1, 1, 1, nr_frames]);
 
     %% Define parameters for spiral recon
     para = [];
