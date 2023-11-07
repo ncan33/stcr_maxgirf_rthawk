@@ -66,8 +66,13 @@ function [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
     r_dcs = calculate_slice_offsets(header, coord);
     
     %% Calculate concomitant field basis functions (N x Nl) [m], [m^2], [m^3]
+    matrix_size_rcs = [Nx, Ny, 1];
+    matrix_size_dcs = abs(matrix_size_rcs * coord.R_rcs2pcs * coord.R_pcs2dcs);
+
     fprintf('%s:(%2d/%2d) Calculating concomitant field basis functions... ', datetime, frame, nr_arms_per_frame);
-    p = calculate_concomitant_field_basis(r_dcs(1,:), r_dcs(2,:), r_dcs(3,:), para.Nl);
+    p = calculate_concomitant_field_basis(r_dcs(1,:)/matrix_size_dcs(1), ...
+        r_dcs(2,:)/matrix_size_dcs(2), r_dcs(3,:)/matrix_size_dcs(3), para.Nl);
+
     disp([newline, 'done!']);
     
     %% Prepare a static off-resonance map [Hz]
