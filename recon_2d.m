@@ -5,9 +5,9 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     % 2D gridding recon using a "Fatrix" encoding operator.
 
     arguments
-        nr_arms_per_frame = 61
-        TR_to_trim = 15*61
-        maxgirf_flag = 0
+        nr_arms_per_frame = 100
+        TR_to_trim = 23*100
+        maxgirf_flag = 1
         area = 'pulseq_lung'
         which_file = 4
         useGPU = 1
