@@ -59,6 +59,9 @@ function [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
     %% Calculate a time vector [sec]
     t = (0:nr_samples - 1).' * header.real_dwell_time; % Nk x 1 [sec]
     
+    %% Display the phase coefficients
+    display_phase_coefficients(k_bar, t, header, nr_arms_per_frame)
+    
     %% Calculate slice offsets f
     r_dcs = calculate_slice_offsets(header, coord);
     
