@@ -27,9 +27,11 @@ function [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
     view_order(nr_arms_total + 1 : end) = [];
     header.view_order_trimmed = view_order;
     
-    g_dcs = reshape_g_dcs(g_dcs, nr_samples, nr_arms_per_frame, ...
-        nr_frames, nr_arms_total, nr_interleaves, view_order);
-    
+    %g_dcs = reshape_g_dcs(g_dcs, nr_samples, nr_arms_per_frame, ...
+    %    nr_frames, nr_arms_total, nr_interleaves, view_order);
+
+    g_dcs = repmat(g_dcs, [1, 1, 1, nr_frames]);
+
     %% Define parameters for spiral recon
     para = [];
     [para] = define_spiral_recon_parameters(para);
@@ -61,7 +63,7 @@ function [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
     r_dcs = calculate_slice_offsets(header, coord);
     
     %% Calculate concomitant field basis functions (N x Nl) [m], [m^2], [m^3]
-    fprintf('%s:(%2d/%2d) Calculating concomitant field basis functions... ', datetime, frame, nr_interleaves);
+    fprintf('%s:(%2d/%2d) Calculating concomitant field basis functions... ', datetime, frame, nr_arms_per_frame);
     p = calculate_concomitant_field_basis(r_dcs(1,:), r_dcs(2,:), r_dcs(3,:), para.Nl);
     disp([newline, 'done!']);
     
