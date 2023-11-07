@@ -1,4 +1,4 @@
-function display_phase_coefficients(k_bar, t, header, nr_arms_per_frame)
+function display_phase_coefficients(k, k_bar, t, header, nr_arms_per_frame)
     %% Display the phase coefficients
     ell_list = [1:6, 8:9].';
     figure('Color', 'w', 'Position', [6 178 1749 800]);
