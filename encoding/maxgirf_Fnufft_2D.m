@@ -1,4 +1,4 @@
- function ob = maxgirf_Fnufft_2D(kx, ky, u, v, nc, matrix_size, useGPU, w, FOV_oversamp, kernel_size)
+ function ob = maxgirf_Fnufft_2D(kx, ky, u, v, para, nc, matrix_size, useGPU, w, FOV_oversamp, kernel_size)
 %function ob = Fnufft2D([mask,] args)
 %|
 %| Do fourier encoding (F) for dynamic 2D operators.
@@ -8,6 +8,7 @@
 %|     ky: size(nread x ns x nframe)
 %|     u: size(nread x L x nframe)
 %|     v: size((nx * ny) x L x nframe)
+%|     para: struct
 %|     nc: number of coils
 %|     matrix_size: size(2 x 1), nx x ny
 %|     optional arguments:
@@ -23,6 +24,7 @@ arguments
     ky (:,:,:) double
     u
     v
+    para struct
     nc double
     matrix_size (:,:) double
     useGPU double = 0
@@ -32,7 +34,13 @@ arguments
 end
 %}
 
+%% Get size of kx
 [nread, ns, nframe] = size(kx);
+
+%% Check for errors in low-rank approximation
+if para.Lmax ~= size(u, 2)
+    error('Rank of u does not match the rank prescribed while generating u.')
+end
 
 %% Construct the N operators for forward model calculation
 matrix_size = matrix_size * FOV_oversamp;

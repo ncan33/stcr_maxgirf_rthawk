@@ -7,9 +7,9 @@ function [traj] = calculate_traj_for_bart(k_rcs, nr_samples, nr_interleaves, nr_
     traj = zeros(3, nr_samples, nr_interleaves, nr_frames, 'single');
     
     for frame = 1:nr_frames
-        traj(1, :, :, frame) = -k_rcs(1,:,:) / (2 * header.krmax); %* header.matrix_size(1);
-        traj(2, :, :, frame) = -k_rcs(2,:,:) / (2 * header.krmax); %* header.matrix_size(2);
-        traj(3, :, :, frame) = -k_rcs(3,:,:) / (2 * header.krmax); %* 1;
+        traj(1, :, :, frame) = -k_rcs(1, :, :, frame) / (2 * header.krmax); %* header.matrix_size(1);
+        traj(2, :, :, frame) = -k_rcs(2, :, :, frame) / (2 * header.krmax); %* header.matrix_size(2);
+        traj(3, :, :, frame) = -k_rcs(3, :, :, frame) / (2 * header.krmax); %* 1;
     end
     
     %% Display k-space trajectories for the calibration region

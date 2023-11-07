@@ -1,5 +1,5 @@
 function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
-    area, which_file, useGPU)
+    maxgirf_flag, area, which_file, useGPU)
     % written by Nejat Can
     % template by Prakash Kumar and Ecrin Yagiz
     % 2D gridding recon using a "Fatrix" encoding operator.
@@ -7,6 +7,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     arguments
         nr_arms_per_frame = 61
         TR_to_trim = 0
+        maxgirf_flag = 1
         area = 'pulseq_lung'
         which_file = 1
         useGPU = 1
@@ -28,13 +29,20 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
 
     %% Calculate MaxGIRF higher-order encoding matrix (u and v)
     [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
-        TR_to_trim, k_rcs, DCF, paths, header, maxgirf_vars);
+        TR_to_trim, header, maxgirf_vars);
     
     %% Encoding
     oversampling = 1; % oversampling factor
 
-    % construct encoding operator F
-    F = maxgirf_Fnufft_2D(kx, ky, u, v, header.nr_coils, header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+    if maxgirf_flag == true
+        F = maxgirf_Fnufft_2D(kx, ky, u, v, para, header.nr_coils, ...
+            header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+    elseif maxgirf_flag == false
+        F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, ...
+            useGPU, DCF(:,1), oversampling, [4,4]);
+    else
+        error('The parameter maxgirf_flag must be set to either 1 or 0.')
+    end
 
     % adjoint test on the operator F (optional)
     test_fatrix_adjoint(F);
