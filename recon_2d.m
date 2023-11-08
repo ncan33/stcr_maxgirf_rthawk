@@ -25,7 +25,7 @@ function image_coil_combined = rthawk_recon_2d(nr_arms_per_frame, TR_to_trim, ..
     paths = select_dataset(area, which_file);
 
     %% Load data and prep
-    [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
+    [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
     nr_arms_per_frame, TR_to_trim, paths);
     
     %% Encoding
@@ -34,7 +34,7 @@ function image_coil_combined = rthawk_recon_2d(nr_arms_per_frame, TR_to_trim, ..
     if maxgirf_flag == true
         %% Calculate MaxGIRF higher-order encoding matrix (u and v)
         [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
-            TR_to_trim, header, maxgirf_vars);
+            TR_to_trim, header, g_dcs, coord);
 
         %% Encoding matrix with MaxGIRF
         F = maxgirf_Fnufft_2D(kx, ky, u, v, para, header.nr_coils, ...

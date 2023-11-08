@@ -2,6 +2,7 @@
      "bart_path": "/server/home/ncan/GitHub/bart",
       "patient_position": "HFS",
       "image_ori": "coronal",
+      "B0": 0.55,
   "recon_parameters": [
     {
       "grid_os_factor1": 1,

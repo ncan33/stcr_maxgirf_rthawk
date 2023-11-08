@@ -1,10 +1,4 @@
 function [r_dcs] = calculate_slice_offsets(header, coord)
-    %% Calculate a slice offset in the PCS [m]
-    pcs_offsets = coord.pcs_offsets;
-
-    %% Calculate a slice offset in the DCS [m]
-    dcs_offsets = coord.R_pcs2dcs * pcs_offsets; % 3 x 1
-    
     %% Get matrix sizes
     Nx = header.matrix_size(1);
     Ny = header.matrix_size(2);
@@ -19,8 +13,8 @@ function [r_dcs] = calculate_slice_offsets(header, coord)
 
     %% Calculate spatial coordinates in the DCS [m]
     N = Nx * Ny * Nz;
-    r_dcs = repmat(dcs_offsets, [1 N]) + coord.R_pcs2dcs * coord.R_gcs2pcs ...
-        * coord.R_rcs2gcs * r_rcs; % 3 x N
+    r_dcs = repmat(coord.dcs_offsets, [1 N]) + coord.R_pcs2dcs * ...
+        coord.R_gcs2pcs * coord.R_rcs2gcs * r_rcs; % 3 x N
 
 end
 
