@@ -8,8 +8,8 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
         nr_arms_per_frame = 60
         TR_to_trim = 20*100
         maxgirf_flag = 0
-        area = 'pulseq_lung'
-        which_file = 4
+        area = 'pulseq_phantom'
+        which_file = 0
         useGPU = 1
     end
 
