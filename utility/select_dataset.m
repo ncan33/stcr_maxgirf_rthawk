@@ -142,5 +142,5 @@ function paths = select_dataset(area, which_file)
                 % "Bad" example
                 case 1
             end
-        end
+    end
 end
