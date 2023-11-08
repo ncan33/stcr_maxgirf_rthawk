@@ -5,11 +5,11 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     % 2D gridding recon using a "Fatrix" encoding operator.
 
     arguments
-        nr_arms_per_frame = 15
-        TR_to_trim = 10*34
-        maxgirf_flag = 1
-        area = 'rthawk_lung'
-        which_file = 1
+        nr_arms_per_frame = 14
+        TR_to_trim = 0
+        maxgirf_flag = 0
+        area = 'rthawk_phantom'
+        which_file = 0
         useGPU = 1
     end
 
