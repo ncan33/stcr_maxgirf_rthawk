@@ -28,7 +28,7 @@ function [coord] = calculate_coordinate_transformations(kspace_info, header)
     coord.R_rcs2pcs = R_rcs2pcs; % save to coord struct
     
     %% Calculate a rotation matrix from the PCS to the DCS
-    coord.R_pcs2dcs = siemens_calculate_matrix_pcs_to_dcs(header.patient_position);
+    coord.R_pcs2dcs = siemens_calculate_transform_pcs_to_dcs(header.patient_position);
 
     %% Calculate a rotation matrix from the RCS to the DCS
     coord.R_rcs2dcs = coord.R_pcs2dcs * coord.R_rcs2pcs;
