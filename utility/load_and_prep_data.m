@@ -10,7 +10,7 @@ function [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
     [kspace, kx, ky, kspace_info, header] = load_rthawk_file(paths);
 
     %% Calculate MaxGIRF variables
-    [g_dcs, coord] = calculate_maxgirf_vars(kx_maxgirf, ky_maxgirf, kspace_info, header);
+    [g_dcs, coord] = calculate_maxgirf_vars(kx, ky, kspace_info, header);
 
     %% Reshape kspace and trajectory
     kspace = kspace(:, TR_to_trim+1:end, :, :); % trim TR
@@ -36,8 +36,8 @@ function [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
     view_order(Narms_total + 1 : end) = [];
     header.view_order_trimmed = view_order;
     
-    kx = kx(:, view_order); kx_maxgirf = kx;
-    ky = ky(:, view_order); ky_maxgirf = ky;
+    kx = kx(:, view_order);
+    ky = ky(:, view_order);
     
     % reshape kspace
     kspace = reshape(kspace, [Nsample, nr_arms_per_frame, Nframes, header.nr_coils]);
