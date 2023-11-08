@@ -6,13 +6,13 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     
     arguments
         nr_arms_per_frame = 15
-        TR_to_trim = 7*34
+        TR_to_trim = 5*34
         maxgirf_flag = 0
-        weight_tTV = 0.05
+        weight_tTV = 0.02
         weight_sTV = 0.01
         delta = 0.1
         area = 'rthawk_lung'
-        which_file = 1
+        which_file = 2
         useGPU = 1
     end
 
@@ -36,7 +36,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     oversampling = 1; % define the oversampling factor
 
     % Solver Parameters
-    Nmaxiter    = 80; % Max number of iterations
+    Nmaxiter    = 150; % Max number of iterations
     Nlineiter   = 20; % Max number of it for Line Search
     betahow     = 'GD'; % NCG Update Methods
     linesearch_how  = 'mm'; % Line Search Method
@@ -82,8 +82,8 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     T_tv = TV_2D(size(first_estimate));
 
     % --------- adjoint test on the operator TV (optional). -------------------
-    test_fatrix_adjoint(T_tfd);
-    test_fatrix_adjoint(T_tv);
+    %test_fatrix_adjoint(T_tfd);
+    %test_fatrix_adjoint(T_tv);
 
     %% Define the L1 Approximation
 
@@ -131,7 +131,10 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     %% Display the Result
     img_recon = gather(x);
     img_recon = rot90(fliplr(img_recon), 1);
-    %img_recon = crop_half_FOV(img_recon);
+    
+    if strcmp(area, 'speech') || strcmp(area, 'cardiac')
+        img_recon = crop_half_FOV(img_recon);
+    end
 
     %as(img_recon);
 

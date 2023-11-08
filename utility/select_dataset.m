@@ -16,6 +16,10 @@ function paths = select_dataset(area, which_file)
                 case 1
                     paths.path = "/server/home/pkumar/mri_data/disc/lung/vol0759_20231106/raw_hawk";
                     paths.name = "usc_disc_yt_2023_11_06_171535_multi_slice_golden_angle_spiral_gre_slice_1_fov_480_n21_slice_01.mat";
+                % Breath hold n34
+                case 2
+                    paths.path = "/server/home/pkumar/mri_data/disc/lung/vol0759_20231106/raw_hawk";
+                    paths.name = "usc_disc_yt_2023_11_06_172519_multi_slice_golden_angle_spiral_gre_slice_1_fov_480_n34_slice_01.mat";
             end
         % ---------------------------------------------------------------------
         case 'rthawk_phantom'
