@@ -19,7 +19,7 @@ function [paths, header] = load_rthawk_file(paths)
     kspace_info = S.kspace_info;
 
     %% Parse parameters
-    header.base_resolution = kspace_info.user_FieldofViewX;
+    header.base_resolution = kspace_info.user_FieldOfViewX;
     header.real_dwell_time = 2e-6; % [sec]
     %header.nr_averages     = seq.getDefinition('Averages');
     header.nr_interleaves  = kspace_info.user_interleaves;
