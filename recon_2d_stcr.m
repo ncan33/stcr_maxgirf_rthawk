@@ -130,7 +130,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
 
     %% Display the Result
     img_recon = gather(x);
-    img_recon = rot90(img_recon, 2);
+    img_recon = rot90(fliplr(img_recon), 1);
     %img_recon = crop_half_FOV(img_recon);
 
     %as(img_recon);

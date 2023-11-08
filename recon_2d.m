@@ -60,7 +60,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     C = C_2D(size(image), sens);
     image_coil_combined = C' * image;
 
-    image_coil_combined = rot90(image_coil_combined, 2);
+    image_coil_combined = rot90(fliplr(image_coil_combined), 1);
     
 end
  
