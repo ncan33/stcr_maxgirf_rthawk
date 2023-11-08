@@ -33,7 +33,7 @@ function [kspace, kx, ky, kspace_info, header] = load_rthawk_file(paths)
     header.fov             = [kspace_info.user_FieldOfViewX;
                               kspace_info.user_FieldOfViewY
                               kspace_info.user_SliceThickness] / 1000;
-    header.nr_interleaves  = kspace_info.user_interleaves;
+    header.nr_interleaves  = size(kspace_info.kx, 2); %kspace_info.user_interleaves;
     header.nr_arms_total = length(kspace_info.viewOrder); % total number of interleaves
     header.patient_position = json.patient_position;
     header.base_resolution = kspace_info.user_FieldOfViewX;

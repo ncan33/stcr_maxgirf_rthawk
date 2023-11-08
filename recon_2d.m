@@ -39,6 +39,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
         %% Encoding matrix with MaxGIRF
         F = maxgirf_Fnufft_2D(kx, ky, u, v, para, header.nr_coils, ...
             header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+        
     elseif maxgirf_flag == false
         F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, ...
             useGPU, DCF(:,1), oversampling, [4,4]);
@@ -47,7 +48,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     end
 
     % adjoint test on the operator F (optional)
-    %test_fatrix_adjoint(F);
+    test_fatrix_adjoint(F);
     
     % encode kspace into image
     image = F' * kspace;

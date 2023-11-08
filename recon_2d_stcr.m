@@ -28,8 +28,8 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     %% Select which dataset to use [See select_dataset.m]
     paths = select_dataset(area, which_file);
 
-    %% Load Data and prep
-    [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
+    %% Load data and prep
+    [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
     nr_arms_per_frame, TR_to_trim, paths);
 
     %% Define recon parameters
@@ -45,11 +45,12 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     if maxgirf_flag == true
         %% Calculate MaxGIRF higher-order encoding matrix (u and v)
         [u, v, para] = calculate_maxgirf_encoding(nr_arms_per_frame, ...
-            TR_to_trim, header, maxgirf_vars);
+            TR_to_trim, header, g_dcs, coord);
 
         %% Encoding matrix with MaxGIRF
         F = maxgirf_Fnufft_2D(kx, ky, u, v, para, header.nr_coils, ...
             header.matrix_size, useGPU, DCF(:,1), oversampling, [4,4]);
+        
     elseif maxgirf_flag == false
         F = Fnufft_2D(kx, ky, header.nr_coils, header.matrix_size, ...
             useGPU, DCF(:,1), oversampling, [4,4]);
