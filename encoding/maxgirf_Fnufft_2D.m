@@ -100,6 +100,6 @@ function x = maxgirf_Fnufft_adj(arg, matrix_size, y, u, v)
     L = size(u, 2);
     for ell = 1:L
         FHDuHd = NUFFT.NUFFT_adj(conj(u(:, ell, :)) .* y, arg) * sqrt(matrix_size(1) * matrix_size(2));
-        x = x + reshape(v(:,ell) .* reshape(FHDuHd, [prod(matrix_size), nframe, ncoil]), size_x);
+        x = x + reshape(v(:, ell, :) .* reshape(FHDuHd, [prod(matrix_size), nframe, ncoil]), size_x);
     end
 end
