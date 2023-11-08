@@ -8,11 +8,11 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
         nr_arms_per_frame = 30
         TR_to_trim = 30*61
         maxgirf_flag = 1
-        weight_tTV = 0.02
+        weight_tTV = 0.05
         weight_sTV = 0.01
         delta = 0.2
         area = 'pulseq_lung'
-        which_file = 1
+        which_file = 2
         useGPU = 1
     end
 

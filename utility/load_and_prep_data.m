@@ -4,12 +4,18 @@ function [kspace, kx, ky, header, maxgirf_vars, DCF] = load_and_prep_data( ...
     % This function loads Pulseq data, reshapes, and scales the data.
 
     %% Import thirdparty libraries
-    addpath(genpath('./thirdparty/pulseq/matlab'))
-    addpath(genpath('./thirdparty/mapVBVD'))
     addpath(genpath('./thirdparty/lowfield_maxgirf'))
-    addpath(genpath('./thirdparty/sdc3'))
-    addpath(genpath('./thirdparty/ismrmrd'))
  
+    %% Get imaging parameters from header
+    res = [kspace_info.user_ResolutionX, kspace_info.user_ResolutionY];         % [mm]
+    matrix_size = ceil([kspace_info.user_FieldOfViewX, kspace_info.user_FieldOfViewX] ./ res);  
+    viewOrder = kspace_info.viewOrder;
+
+    % kspace and trajectory
+    kspace = permute(kspace, [1, 2, 4, 3]);
+    kx = kspace_info.kx_GIRF;
+    ky = kspace_info.ky_GIRF;
+
     %% Load data
     [paths, header] = load_pulseq_file(paths);
     [kspace, k_rcs, header, maxgirf_vars] = load_ismrmrd_file(paths, header);

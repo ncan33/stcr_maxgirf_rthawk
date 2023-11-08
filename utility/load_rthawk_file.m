@@ -1,14 +1,7 @@
-function [paths, header] = load_pulseq_file(paths)
-    %% Add Pulseq filepaths to paths struct
-    paths.siemens_twix_file = fullfile(paths.folder, [paths.name, '.dat']); 
-    paths.ismrmrd_data_file = fullfile(paths.folder, [paths.name, '.h5']); 
-    paths.ismrmrd_noise_file = fullfile(paths.folder, ['noise_', paths.name, '.h5']);
-    paths.ismrmrd_traj_file = fullfile(paths.folder, paths.traj);
-    paths.seq_file = fullfile(paths.folder, paths.seq);
-    
-    %% Read a .seq file
-    seq = mr.Sequence;
-    seq.read(paths.seq_file);
+function [paths, header] = load_rthawk_file(paths)
+    %% Read a RTHawk .mat file
+    file_name = fullfile(paths.path, paths.name);
+    load(file_name);
 
     %% Parse parameters
     header.base_resolution = seq.getDefinition('BaseResolution');
