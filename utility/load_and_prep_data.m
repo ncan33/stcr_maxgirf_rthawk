@@ -8,7 +8,10 @@ function [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
 
     %% Load data
     [kspace, kx, ky, kspace_info, header] = load_rthawk_file(paths);
-        
+
+    %% Calculate MaxGIRF variables
+    [g_dcs, coord] = calculate_maxgirf_vars(kx_maxgirf, ky_maxgirf, kspace_info, header);
+
     %% Reshape kspace and trajectory
     kspace = kspace(:, TR_to_trim+1:end, :, :); % trim TR
     view_order = header.view_order;
@@ -50,8 +53,5 @@ function [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
 
     %pre-weight kspace by sqrt(DCF) and then encode into image.
     kspace = kspace .* sqrt(DCF(:,1));
-
-    %% Calculate MaxGIRF variables
-    [g_dcs, coord] = calculate_maxgirf_vars(kx_maxgirf, ky_maxgirf, kspace_info, header);
 
 end
