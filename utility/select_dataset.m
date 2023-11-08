@@ -23,8 +23,8 @@ function paths = select_dataset(area, which_file)
                 % -------------------------------------------------------------
                 % z=80mm
                 case 0 
-                    paths.path = "/server/home/pkumar/mri_data/disc/speech/vol0634_20230601/raw_hawk/";
-                    paths.name = "usc_disc_20230601_172615_pk_speech_rt_ssfp_fov24_res24_n13_vieworder_bitr.mat";
+                    paths.path = pwd;
+                    paths.name = "phantom80mm.mat";
                 % -------------------------------------------------------------
                 % z=0mm
                 case 1
