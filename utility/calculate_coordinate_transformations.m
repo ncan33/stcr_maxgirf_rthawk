@@ -34,9 +34,9 @@ function [coord] = calculate_coordinate_transformations(kspace_info, header)
     coord.R_rcs2dcs = coord.R_pcs2dcs * coord.R_rcs2pcs;
 
     %% Get a slice offset of a stack in the PCS [m]
-    coord.pcs_offsets = [kspace_info.TranslationX;
-                         kspace_info.TranslationY;
-                         kspace_info.TranslationZ] * 1e-3; % [mm] * [m/1e3mm] => [m]
+    coord.pcs_offsets = [kspace_info.user_TranslationX;
+                         kspace_info.user_TranslationY;
+                         kspace_info.user_TranslationZ] * 1e-3; % [mm] * [m/1e3mm] => [m]
 
     %% Calculate a slice ofset of a stack in the RCS [m]
     coord.rcs_offsets = coord.R_rcs2pcs.' * coord.pcs_offsets;
