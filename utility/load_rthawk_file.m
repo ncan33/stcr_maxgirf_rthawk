@@ -1,7 +1,10 @@
 function [paths, header] = load_rthawk_file(paths)
     %% Read a RTHawk .mat file
     file_name = fullfile(paths.path, paths.name);
-    load(file_name);
+    S = load(file_name);
+
+    kspace = S.kspace;
+    kspace_info = S.kspace_info;
 
     %% Parse parameters
     header.base_resolution = seq.getDefinition('BaseResolution');
