@@ -13,8 +13,7 @@ function [r_dcs] = calculate_slice_offsets(header, coord)
 
     %% Calculate spatial coordinates in the DCS [m]
     N = Nx * Ny * Nz;
-    r_dcs = repmat(coord.dcs_offsets, [1 N]) + coord.R_pcs2dcs * ...
-        coord.R_gcs2pcs * coord.R_rcs2gcs * r_rcs; % 3 x N
+    r_dcs = repmat(coord.dcs_offsets, [1 N]) + coord.R_rcs2dcs * r_rcs; % 3 x N
 
 end
 
