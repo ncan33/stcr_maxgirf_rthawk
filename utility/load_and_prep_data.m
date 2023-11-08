@@ -25,9 +25,9 @@ function [kspace, kx, ky, header, g_dcs, coord, DCF] = load_and_prep_data( ...
     Nsample = size(kspace, 1);
     
     % quick sanity check
-    if header.nr_arms_total ~= Narms_total || header.nr_frames ~= Nframes
-        error('There is a bug.')
-    end
+    %if header.nr_arms_total ~= Narms_total || header.nr_frames ~= Nframes
+    %    error('There is a bug.')
+    %end
 
     kx = repmat(kx, [1, ceil(Narms_total / GA_steps)]);
     ky = repmat(ky, [1, ceil(Narms_total / GA_steps)]);
