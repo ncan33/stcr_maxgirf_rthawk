@@ -5,14 +5,14 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     % 2D STCR recon using a "Fatrix" encoding operator.
     
     arguments
-        nr_arms_per_frame = 30
-        TR_to_trim = 30*61
-        maxgirf_flag = 1
+        nr_arms_per_frame = 15
+        TR_to_trim = 10*34
+        maxgirf_flag = 0
         weight_tTV = 0.05
         weight_sTV = 0.01
         delta = 0.2
-        area = 'pulseq_lung'
-        which_file = 2
+        area = 'rthawk_lung'
+        which_file = 0
         useGPU = 1
     end
 

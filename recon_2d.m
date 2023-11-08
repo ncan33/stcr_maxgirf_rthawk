@@ -1,12 +1,12 @@
-function image_coil_combined = rthawk_recon_2d(nr_arms_per_frame, TR_to_trim, ...
+function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
     maxgirf_flag, area, which_file, useGPU)
     % written by Nejat Can
     % template by Prakash Kumar and Ecrin Yagiz
     % 2D gridding recon using a "Fatrix" encoding operator.
 
     arguments
-        nr_arms_per_frame = 60
-        TR_to_trim = 20*100
+        nr_arms_per_frame = 15
+        TR_to_trim = 10*34
         maxgirf_flag = 0
         area = 'rthawk_lung'
         which_file = 0
