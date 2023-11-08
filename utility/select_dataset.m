@@ -26,7 +26,7 @@ function paths = select_dataset(area, which_file)
                     paths.path = pwd;
                     paths.name = "phantom80mm.mat";
                 % -------------------------------------------------------------
-                % z=0mm
+                % coronal
                 case 1
             end
         % ---------------------------------------------------------------------
@@ -85,5 +85,58 @@ function paths = select_dataset(area, which_file)
                     paths.traj = 'traj_bssfp_spiralout_Tread_14.22ms_256mm_1.0mm_5mm_TE0.86_TR15.92_i15_avg10.h5';
                     paths.seq = 'bssfp_spiralout_Tread_14.22ms_256mm_1.0mm_5mm_TE0.86_TR15.92_i15_avg10.seq';
             end
-    end
+        case 'pulseq_liver'
+            switch which_file
+                % 75mm liver
+                case 0
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/liver/vol0736_20231024/freebreathing';
+                    paths.name = 'meas_MID00376_FID10820_liver_15ms_75mm_free_breathing';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.seq';
+                % 0mm liver
+                case 1
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/liver/vol0736_20231024/freebreathing';
+                    paths.name = 'meas_MID00374_FID10818_liver_15ms_0mm_free_breathing';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.seq';
+            end
+        case 'pulseq_kidney'
+            switch which_file
+                % 75mm liver
+                case 0
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/kidney/vol0736_20231024/freebreathing';
+                    paths.name = 'meas_MID00377_FID10821_kidney_15ms_75mm_free_breathing';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.seq';
+                % 0mm kidney
+                case 1
+                    paths.folder = '/server/sdata/ncan/mri_data/disc/liver/vol0736_20231024/freebreathing';
+                    paths.name = 'meas_MID00375_FID10819_kidney_15ms_0mm_free_breathing';
+                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.h5';
+                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR15.18_i30_avg63.seq';
+            end
+        case 'cardiac'
+            switch which_file
+                % -------------------------------------------------------------
+                % "Good" example
+                case 0
+                    paths.path = "/server/sdata/eyagiz/mri_data/disc/heart/vol0376_20220620/raw_hawk/";
+                    paths.name = "usc_disc_yt_2022_06_20_144717_multi_slice_golden_angle_spiral_ssfp_slice_9_fov_240_n17_slice_06.mat";
+                % -------------------------------------------------------------
+                % "Bad" example
+                case 1
+            end
+        % ---------------------------------------------------------------------
+        case 'speech'
+            switch which_file
+                % -------------------------------------------------------------
+                % "Good" example
+                case 0 
+                    paths.path = "/server/home/pkumar/mri_data/disc/speech/vol0634_20230601/raw_hawk/";
+                    paths.name = "usc_disc_20230601_172615_pk_speech_rt_ssfp_fov24_res24_n13_vieworder_bitr.mat";
+                % -------------------------------------------------------------
+                % "Bad" example
+                case 1
+            end
+        end
 end
