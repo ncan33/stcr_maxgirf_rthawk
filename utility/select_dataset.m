@@ -4,16 +4,18 @@ function paths = select_dataset(area, which_file)
 
     switch area
         % ---------------------------------------------------------------------
-        case 'cardiac'
+        case 'rthawk_lung'
             switch which_file
                 % -------------------------------------------------------------
-                % "Good" example
+                % Freebreathing n34
                 case 0
-                    paths.path = "/server/sdata/eyagiz/mri_data/disc/heart/vol0376_20220620/raw_hawk/";
-                    paths.name = "usc_disc_yt_2022_06_20_144717_multi_slice_golden_angle_spiral_ssfp_slice_9_fov_240_n17_slice_06.mat";
+                    paths.path = "/server/home/pkumar/mri_data/disc/lung/vol0759_20231106/raw_hawk";
+                    paths.name = "usc_disc_yt_2023_11_06_171628_multi_slice_golden_angle_spiral_gre_slice_1_fov_480_n34_slice_01.mat";
                 % -------------------------------------------------------------
-                % "Bad" example
+                % Freebreathing n21
                 case 1
+                    paths.path = "/server/home/pkumar/mri_data/disc/lung/vol0759_20231106/raw_hawk";
+                    paths.name = "usc_disc_yt_2023_11_06_171535_multi_slice_golden_angle_spiral_gre_slice_1_fov_480_n21_slice_01.mat";
             end
         % ---------------------------------------------------------------------
         case 'speech'
