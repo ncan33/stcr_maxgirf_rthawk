@@ -18,15 +18,15 @@ function paths = select_dataset(area, which_file)
                     paths.name = "usc_disc_yt_2023_11_06_171535_multi_slice_golden_angle_spiral_gre_slice_1_fov_480_n21_slice_01.mat";
             end
         % ---------------------------------------------------------------------
-        case 'speech'
+        case 'rthawk_phantom'
             switch which_file
                 % -------------------------------------------------------------
-                % "Good" example
+                % z=80mm
                 case 0 
                     paths.path = "/server/home/pkumar/mri_data/disc/speech/vol0634_20230601/raw_hawk/";
                     paths.name = "usc_disc_20230601_172615_pk_speech_rt_ssfp_fov24_res24_n13_vieworder_bitr.mat";
                 % -------------------------------------------------------------
-                % "Bad" example
+                % z=0mm
                 case 1
             end
         % ---------------------------------------------------------------------

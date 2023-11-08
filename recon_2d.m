@@ -9,7 +9,7 @@ function image_coil_combined = recon_2d(nr_arms_per_frame, TR_to_trim, ...
         TR_to_trim = 10*34
         maxgirf_flag = 1
         area = 'rthawk_lung'
-        which_file = 0
+        which_file = 1
         useGPU = 1
     end
 

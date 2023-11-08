@@ -48,7 +48,7 @@ function [kspace, kx, ky, kspace_info, header] = load_rthawk_file(paths)
     header.readout_duration = double(header.grad_samples * header.grad_raster_time); % readout duration [sec]
     header.real_dwell_time = 2e-6; % [sec]
     
-    disp(['Please double check that the pateint position is ', header.patient_position])
+    disp(['Please double check that the patient position is ', header.patient_position])
     
     %% Get resolution and matrix size
     res_x = (header.base_resolution / (header.fov(1) * 1000)) / 1000; % units: mm

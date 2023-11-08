@@ -12,7 +12,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
         weight_sTV = 0.01
         delta = 0.2
         area = 'rthawk_lung'
-        which_file = 0
+        which_file = 1
         useGPU = 1
     end
 
