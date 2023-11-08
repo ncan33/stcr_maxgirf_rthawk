@@ -1,0 +1,30 @@
+{
+     "bart_path": "/server/home/ncan/GitHub/bart",
+      "patient_position": "HFS",
+      "image_ori": "coronal",
+  "recon_parameters": [
+    {
+      "grid_os_factor1": 1,
+      "grid_os_factor2": 1,
+      "cal_size": [ 24, 24, 1 ],
+      "lambda": 0.001,
+      "max_iter": 6,
+      "kappa": 1
+    }
+  ],
+  "noir_conf": [
+    {
+      "a": 16,
+      "b": 16,
+      "max_iter": 25
+    }
+  ],
+   "user_opts": [
+    {
+      "static_B0_correction": 0,
+      "Lmax": 20,
+      "L": 8,
+      "support_constraint": 0
+    }
+  ]
+}
