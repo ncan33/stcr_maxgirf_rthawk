@@ -41,7 +41,7 @@ for idx = 1:nr_chunks
         % [2pi rad/cycle] * [sec] * [Hz] => [rad]
         phi = phi + (2 * pi) * t * B0map(col_range).';
     end
-    E_chunk = exp(1j * phi); % Nk x N_chunk
+    E_chunk = exp(-1j * phi); % Nk x N_chunk
 
     %----------------------------------------------------------------------
     % Calculate the rows of a Gaussian random matrix, Omega
@@ -83,7 +83,7 @@ for idx = 1:nr_chunks
         % (Nk x 1) * (N_chunk x 1).' => Nk x N_chunk
         phi = phi + (2 * pi) * t * B0map(col_range).';
     end
-    E_chunk = exp(1j * phi); % Nk x N_chunk
+    E_chunk = exp(-1j * phi); % Nk x N_chunk
 
     %----------------------------------------------------------------------
     % Calculate the columns of B
