@@ -1,6 +1,6 @@
 function [paths, header] = load_rthawk_file(paths)
     %% Read a .json file
-    fid = fopen(json_file); 
+    fid = fopen('rthawk_recon.json'); 
     json_txt = fread(fid, [1 inf], 'char=>char'); 
     fclose(fid);
     json = jsondecode(json_txt);
