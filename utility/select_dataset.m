@@ -72,16 +72,16 @@ function paths = select_dataset(area, which_file)
                 % Transversal, TR = 15ms, 0mm
                 case 0 
                     paths.folder = '/server/sdata/ncan/mri_data/disc/phantom/phantom0359_20231005/transversal/spiral';
-                    paths.name = 'meas_MID01268_FID08945_transversal_14ms_0mm.dat';
+                    paths.name = 'meas_MID01268_FID08945_transversal_14ms_0mm';
                     paths.traj = 'traj_bssfp_spiralout_Tread_14.22ms_256mm_1.0mm_5mm_TE0.86_TR15.92_i15_avg10.h5';
                     paths.seq = 'bssfp_spiralout_Tread_14.22ms_256mm_1.0mm_5mm_TE0.86_TR15.92_i15_avg10.seq';
                 % -------------------------------------------------------------
                 % Transversal, TR = 15ms, 75mm
                 case 1
                     paths.folder = '/server/sdata/ncan/mri_data/disc/phantom/phantom0359_20231005/transversal/spiral';
-                    paths.name = 'meas_MID01280_FID08957_transversal_14ms_75mm.dat';
-                    paths.traj = 'traj_bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.h5';
-                    paths.seq = 'bssfp_spiralout_480mm_1.0mm_6mm_TE1.00_TR11.98_i61_avg41.seq';
+                    paths.name = 'meas_MID01280_FID08957_transversal_14ms_75mm';
+                    paths.traj = 'traj_bssfp_spiralout_Tread_14.22ms_256mm_1.0mm_5mm_TE0.86_TR15.92_i15_avg10.h5';
+                    paths.seq = 'bssfp_spiralout_Tread_14.22ms_256mm_1.0mm_5mm_TE0.86_TR15.92_i15_avg10.seq';
             end
     end
 end
