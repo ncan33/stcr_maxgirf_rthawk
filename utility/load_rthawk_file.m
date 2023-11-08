@@ -1,4 +1,16 @@
 function [paths, header] = load_rthawk_file(paths)
+    %% Read a .json file
+    fid = fopen(json_file); 
+    json_txt = fread(fid, [1 inf], 'char=>char'); 
+    fclose(fid);
+    json = jsondecode(json_txt);
+
+    %--------------------------------------------------------------------------
+    % Define the full path of a filename
+    %--------------------------------------------------------------------------
+    %dat_path    = json.dat_path;
+    %output_path = json.output_path;
+
     %% Read a RTHawk .mat file
     file_name = fullfile(paths.path, paths.name);
     S = load(file_name);
@@ -7,15 +19,16 @@ function [paths, header] = load_rthawk_file(paths)
     kspace_info = S.kspace_info;
 
     %% Parse parameters
-    header.base_resolution = seq.getDefinition('BaseResolution');
-    header.discard_pre     = seq.getDefinition('DiscardPre');
-    header.real_dwell_time = seq.getDefinition('RealDwellTime'); % [sec]
-    header.nr_averages     = seq.getDefinition('Averages');
-    header.nr_interleaves  = seq.getDefinition('Interleaves');
-    header.grad_samples    = seq.getDefinition('GradSamples');
-    header.arm_samples     = seq.getDefinition('ArmSamples');
-    header.fov             = seq.getDefinition('FOV');
-    header.slice_thickness = seq.getDefinition('SliceThickness');
+    header.base_resolution = kspace_info.user_FieldofViewX;
+    header.real_dwell_time = 2e-6; % [sec]
+    %header.nr_averages     = seq.getDefinition('Averages');
+    header.nr_interleaves  = kspace_info.user_interleaves;
+    header.grad_samples    = size(kspace_info.kx, 1);
+    %header.arm_samples     = seq.getDefinition('ArmSamples');
+    header.fov             = [kspace_info.user_FieldOfViewX;
+                              kspace_info.user_FieldOfViewY
+                              kspace_info.user_SliceThickness] / 1000;
+    header.slice_thickness = kspace_info.user_SliceThickness / 1000;
 
     %% Get resolution and matrix size
     res_x = (header.base_resolution / (header.fov(1) * 1000)) / 1000; % units: mm
