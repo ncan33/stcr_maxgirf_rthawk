@@ -6,13 +6,13 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     
     arguments
         nr_arms_per_frame = 15
-        TR_to_trim = 15*100
+        TR_to_trim = 2*100
         maxgirf_flag = 0
-        weight_tTV = 0.02
-        weight_sTV = 0.01
-        delta = 0.1
+        weight_tTV = 0.01
+        weight_sTV = 0.001
+        delta = 0.15
         area = 'rthawk_lung'
-        which_file = 2 %then do 0
+        which_file = 1
         useGPU = 1
     end
 
@@ -36,7 +36,7 @@ function img_recon = recon_2d_stcr(nr_arms_per_frame, TR_to_trim, ...
     oversampling = 1; % define the oversampling factor
 
     % Solver Parameters
-    Nmaxiter    = 150; % Max number of iterations
+    Nmaxiter    = 80; % Max number of iterations
     Nlineiter   = 20; % Max number of it for Line Search
     betahow     = 'GD'; % NCG Update Methods
     linesearch_how  = 'mm'; % Line Search Method
